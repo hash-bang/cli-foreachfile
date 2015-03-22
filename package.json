@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "description": "Simple CLI file iterator to run a command over each file in a directory recursively",
   "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "bin": {
+    "foreach": "./foreach"
   },
   "repository": {
     "type": "git",
