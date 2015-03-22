@@ -36,10 +36,6 @@ program.glob = program.rawArgs.pop();
 if (!program.glob) program.glob = '**';
 // }}}
 
-console.log('GLOB', program.glob);
-console.log('CMD', program.command);
-
-
 glob(program.glob, {
 	follow: true,
 }, function(err, files) {
