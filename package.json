@@ -1,8 +1,8 @@
 {
   "name": "cli-foreachfile",
-  "version": "0.1.0",
-  "description": "Simple CLI file iterator to run a command over each file in a directory recursively",
-  "main": "app.js",
+  "version": "1.0.0",
+  "description": "Simple CLI utility to recursively execute a command for each matching file",
+  "main": "foreach",
   "bin": {
     "foreach": "./foreach"
   },
