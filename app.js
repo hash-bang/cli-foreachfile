@@ -49,12 +49,16 @@ glob(program.glob, {
 		.forEach(files, function(next, path) {
 			var basename = fsPath.basename(path);
 			var ext = fsPath.extname(path).replace(/^\./, ''); // Remove '.'
+			var nameNoExt = fsPath.basename(path, ext ? '.' + ext : '');
 			var dirname = fsPath.dirname(path);
 			var myCommand = program.command.map(function(i) {
 				return i
+					.replace('%b', nameNoExt)
+					.replace('%e', ext)
 					.replace('%f', basename)
 					.replace('%p', path)
 					.replace('{{name}}', basename)
+					.replace('{{path}}', path)
 					.replace('{{dir}}', dirname)
 					.replace('{{base}}', basename)
 					.replace('{{basename}}', basename)
@@ -65,28 +69,13 @@ glob(program.glob, {
 
 			async()
 				.use(asyncExec)
-				.exec(myCommand)
+				.exec(myCommand, {
+					cwd: dirname,
+					passthru: true,
+				})
 				.end(next);
 		})
 		.end(function(err) {
 			if (err) return console.log(colors.red(err));
 		});
 });
-
-/*
-
-var grepper = new nogrep();
-
-grepper
-	.add(process.cwd()) // Scan from this directory onwards
-	.filter(program.args)
-	.each(program.verbose ? function(next, item) {
-		console.log('Scanning', colors.cyan(item.path), '...');
-		next();
-	} : null)
-	.each(function(next, i) {
-		if (program.dryRun) return next();
-		next();
-	})
-	.exec();
-*/
