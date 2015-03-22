@@ -11,8 +11,7 @@ program
 	.version(require('./package.json').version)
 	.usage('[files...] -- <command>')
 	.option('-d, --dry-run', 'Do not run anything, instead show what would be run (inplies `-v`)')
-	.option('-l, --limit [number]', 'Number of commands to run in parallel if `-p` is set')
-	.option('-p, --parallel', 'Run all commands in parallel')
+	.option('-p, --parallel [number]', 'Run commands in the specified number of parallel threads')
 	.option('-v, --verbose', 'Be verbose')
 	.parse(process.argv);
 
@@ -45,7 +44,7 @@ glob(program.glob, {
 	follow: true,
 }, function(err, files) {
 	async()
-		.limit(program.parallel ? 1 : program.limit) // Limit parallel processes
+		.limit(program.parallel || 1) // Limit parallel processes
 		.forEach(files, function(next, path) {
 			var basename = fsPath.basename(path);
 			var ext = fsPath.extname(path).replace(/^\./, ''); // Remove '.'
