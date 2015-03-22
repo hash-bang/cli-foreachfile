@@ -6,12 +6,12 @@ Examples:
 
 	# Visit each .tar file (setting the directory to its location) and untar:
 
-	foreach '**/*.tar' -- tar xvf %f
+	each '**/*.tar' -- tar xvf %f
 
 
 	# Convert all .jpg images to .png
 	
-	foreach '**/*.jpg' -- convert %b.jpg %b.png
+	each '**/*.jpg' -- convert %b.jpg %b.png
 
 
 See the main `--help` page for more information.
