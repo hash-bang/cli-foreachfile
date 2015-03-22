@@ -1,0 +1,25 @@
+{
+  "name": "cli-foreachfile",
+  "version": "0.1.0",
+  "description": "Simple CLI file iterator to run a command over each file in a directory recursively",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hash-bang/cli-foreachfile"
+  },
+  "keywords": [
+    "cli",
+    "foreach",
+    "files",
+    "find",
+    "run"
+  ],
+  "author": "Matt Carter <m@ttcarter.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hash-bang/cli-foreachfile/issues"
+  }
+}
