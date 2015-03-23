@@ -1,6 +1,6 @@
 {
   "name": "cli-foreachfile",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple CLI utility to recursively execute a command for each matching file",
   "main": "each",
   "bin": {

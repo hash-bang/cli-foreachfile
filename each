@@ -38,7 +38,11 @@ if (!program.glob) program.glob = '**';
 
 glob(program.glob, {
 	follow: true,
+	matchBase: true, // Assumme '*.js' -> '**/*.js'
 }, function(err, files) {
+	if (err) return console.log(colors.blue('[ForEachFile]'), colors.red(err));
+	if (!files.length) return console.log(colors.blue('[ForEachFile]'), colors.red('No matching files'));
+
 	async()
 		.limit(program.parallel || 1) // Limit parallel processes
 		.forEach(files, function(next, path) {
