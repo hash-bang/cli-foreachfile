@@ -9,39 +9,49 @@ var spawn = require('child_process').spawn;
 var program = require('commander');
 program
 	.version(require('./package.json').version)
-	.usage('[files...] -- <command>')
+	.usage('[glob] -- <command>')
 	.option('-d, --dry-run', 'Do not run anything, instead show what would be run (inplies `-v`)')
 	.option('-p, --parallel [number]', 'Run commands in the specified number of parallel threads')
 	.option('-v, --verbose', 'Be verbose')
+	.allowUnknownOption(true)
 	.parse(process.argv);
 
 // Process command line args {{{
 if (program.dryRun) program.verbose = true;
 
-var cmdstart = program.rawArgs.indexOf('--');
-if (!cmdstart) {
-	console.log('Command must be specified after `--`');
-	console.log('Usage: foreach [patterns...] -- <command>');
+program.glob = program.args.shift();
+program.command = program.args;
+
+if (program.rawArgs.indexOf('--') > -1) { // Using 'each [glob] -- [command]' syntax
+	program.rawArgs.shift(); // Remove node
+	program.rawArgs.shift(); // Remove program name
+	if (program.rawArgs.indexOf('--') == 0) { // No glob specified assume 'each * -- command'
+		program.glob = '*';
+		program.command = program.rawArgs.slice(1);
+	}
+}
+
+if (!program.glob) {
+	console.log('No glob specified.');
+	console.log('Usage: foreach [glob] -- <command>');
 	return false;
 }
-program.command = program.rawArgs.splice(cmdstart).slice(1);
-
-if (!program.command) {
+if (!program.command.length) {
 	console.log('No command specified.');
-	console.log('Usage: foreach [patterns...] -- <command>');
+	console.log('Usage: foreach [glob] -- <command>');
 	return false;
 }
-
-program.glob = program.rawArgs.pop();
-if (!program.glob) program.glob = '**';
 // }}}
+
+if (program.verbose) console.log(colors.blue('[ForEachFile]'), 'Using glob', colors.cyan(program.glob));
 
 glob(program.glob, {
 	follow: true,
 	matchBase: true, // Assumme '*.js' -> '**/*.js'
 }, function(err, files) {
 	if (err) return console.log(colors.blue('[ForEachFile]'), colors.red(err));
-	if (!files.length) return console.log(colors.blue('[ForEachFile]'), colors.red('No matching files'));
+	if (!files.length) return console.log(colors.blue('[ForEachFile]'), colors.red('No matching files for the expression'), colors.cyan(program.glob));
+	if (program.verbose) console.log(colors.blue('[ForEachFile]'), 'Found', colors.cyan(files.length.toString()), 'files');
 
 	async()
 		.limit(program.parallel || 1) // Limit parallel processes
