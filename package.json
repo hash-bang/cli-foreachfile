@@ -4,7 +4,7 @@
   "description": "Simple CLI utility to recursively execute a command for each matching file",
   "main": "each",
   "bin": {
-    "each": "./each"
+    "each": "./each.js"
   },
   "repository": {
     "type": "git",
