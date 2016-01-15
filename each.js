@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var async = require('async-chainable');
 var asyncExec = require('async-chainable-exec');
-var colors = require('colors');
+var colors = require('chalk');
 var fsPath = require('path');
 var glob = require('glob');
 var spawn = require('child_process').spawn;

@@ -23,8 +23,9 @@
     "url": "https://github.com/hash-bang/cli-foreachfile/issues"
   },
   "dependencies": {
-    "colors": "~1.0.3",
     "async-chainable": "~1.7.1",
-    "async-chainable-exec": "~1.2.2"
+    "async-chainable-exec": "~1.2.2",
+    "chalk": "^1.1.1",
+    "glob": "^6.0.4"
   }
 }
