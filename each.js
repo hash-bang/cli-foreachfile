@@ -60,18 +60,32 @@ glob(program.glob, {
 			var ext = fsPath.extname(path).replace(/^\./, ''); // Remove '.'
 			var nameNoExt = fsPath.basename(path, ext ? '.' + ext : '');
 			var dirname = fsPath.dirname(path);
+			var fullPath = fsPath.resolve(path);
+
 			var myCommand = program.command.map(function(i) {
 				return i
-					.replace('%b', nameNoExt)
-					.replace('%e', ext)
+					// File
 					.replace('%f', basename)
-					.replace('%p', path)
 					.replace('{{name}}', basename)
-					.replace('{{path}}', path)
-					.replace('{{dir}}', dirname)
 					.replace('{{base}}', basename)
 					.replace('{{basename}}', basename)
+
+					// File Info
+					.replace('%b', nameNoExt)
+					.replace('%e', ext)
 					.replace('{{ext}}', ext)
+					.replace('{{nameNoExt}}', ext)
+
+					// Directory
+					.replace('%d', dirname)
+					.replace('{{dir}}', dirname)
+					.replace('{{dirname}}', dirname)
+
+					// Path
+					.replace('%p', path)
+					.replace('%r', fullPath)
+					.replace('{{path}}', path)
+					.replace('{{resolved}}', fullPath)
 			});
 			if (program.verbose) console.log(colors.blue('[ForEachFile]'), 'Run', colors.cyan(myCommand.join(' ')));
 			if (program.dryRun) return next();
