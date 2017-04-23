@@ -10,7 +10,7 @@ var program = require('commander');
 program
 	.version(require('./package.json').version)
 	.usage('[glob] -- <command>')
-	.option('-d, --dry-run', 'Do not run anything, instead show what would be run (inplies `-v`)')
+	.option('-d, --dry-run', 'Do not run anything, instead show what would be run (implies `-v`)')
 	.option('-p, --parallel [number]', 'Run commands in the specified number of parallel threads')
 	.option('-v, --verbose', 'Be verbose')
 	.allowUnknownOption(true)
@@ -47,7 +47,7 @@ if (program.verbose) console.log(colors.blue('[ForEachFile]'), 'Using glob', col
 
 glob(program.glob, {
 	follow: true,
-	matchBase: true, // Assumme '*.js' -> '**/*.js'
+	matchBase: true, // Assume '*.js' -> '**/*.js'
 }, function(err, files) {
 	if (err) return console.log(colors.blue('[ForEachFile]'), colors.red(err));
 	if (!files.length) return console.log(colors.blue('[ForEachFile]'), colors.red('No matching files for the expression'), colors.cyan(program.glob));
