@@ -1,6 +1,6 @@
 {
   "name": "cli-foreachfile",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Simple CLI utility to recursively execute a command for each matching file",
   "main": "each",
   "bin": {
@@ -23,16 +23,16 @@
     "url": "https://github.com/hash-bang/cli-foreachfile/issues"
   },
   "dependencies": {
-    "@momsfriendlydevco/exec": "^1.5.0",
+    "@momsfriendlydevco/exec": "^1.5.2",
     "@momsfriendlydevco/template": "^1.1.2",
-    "chalk": "^3.0.0",
-    "commander": "^4.1.1",
-    "commander-extras": "^1.1.0",
+    "chalk": "^4.0.0",
+    "commander": "^5.1.0",
+    "commander-extras": "^1.1.1",
     "globby": "^11.0.0",
     "i": "^0.3.6"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^7.0.1"
+    "mocha": "^7.1.2"
   }
 }
